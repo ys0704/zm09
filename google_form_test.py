@@ -7,9 +7,9 @@ import time
 # 簡単テスト版
 def test_google_form():
     # 【ここにあなたのGoogleフォームURLを入力してください】
-    form_url = "https://forms.gle/dLEULnjz5Rii26JV6"
+    form_url = "https://docs.google.com/forms/d/e/1FAIpQLSeZa8UBHoYSs5ezhUR-tPOxf3LaN61aqcdRO8QRHof07oZBuw/viewform?usp=sf_link"
     
-    if form_url == "https://forms.gle/dLEULnjz5Rii26JV6":
+    if form_url == "YOUR_GOOGLE_FORM_URL_HERE":
         print("❌ form_urlを実際のGoogleフォームURLに変更してください！")
         return
     
