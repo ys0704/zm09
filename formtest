@@ -1,0 +1,71 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+
+# 簡単テスト版
+def test_google_form():
+    # 【ここにあなたのGoogleフォームURLを入力してください】
+    form_url = "https://forms.gle/dLEULnjz5Rii26JV6"
+    
+    if form_url == "https://forms.gle/dLEULnjz5Rii26JV6":
+        print("❌ form_urlを実際のGoogleフォームURLに変更してください！")
+        return
+    
+    # ChromeDriverの自動設定
+    print("🚀 ChromeDriverを準備中...")
+    options = webdriver.ChromeOptions()
+    # options.add_argument('--headless')  # ヘッドレスモードにする場合はコメントアウト
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+    
+    try:
+        print("📋 フォームを開いています...")
+        driver.get(form_url)
+        time.sleep(3)
+        
+        print("🔍 フォーム構造を分析中...")
+        
+        # テキストフィールドを探す
+        text_inputs = driver.find_elements(By.CSS_SELECTOR, "input[type='text'], input[type='email']")
+        print(f"✅ テキストフィールド: {len(text_inputs)}個見つかりました")
+        
+        # テキストエリアを探す
+        textareas = driver.find_elements(By.TAG_NAME, "textarea")
+        print(f"✅ テキストエリア: {len(textareas)}個見つかりました")
+        
+        # ラジオボタンを探す
+        radio_groups = driver.find_elements(By.CSS_SELECTOR, "div[role='radiogroup']")
+        print(f"✅ ラジオボタングループ: {len(radio_groups)}個見つかりました")
+        
+        # 実際に1つ目のテキストフィールドに入力してみる
+        if text_inputs:
+            print("📝 1番目のテキストフィールドにテスト入力...")
+            text_inputs[0].clear()
+            text_inputs[0].send_keys("テスト太郎")
+            print("✅ 入力完了！")
+        
+        # 2つ目のテキストフィールドがあれば入力
+        if len(text_inputs) > 1:
+            print("📝 2番目のテキストフィールドにテスト入力...")
+            text_inputs[1].clear()
+            text_inputs[1].send_keys("test@example.com")
+            print("✅ 入力完了！")
+        
+        print("\n🎉 テスト完了！ブラウザを手動で確認してください")
+        print("⏰ 10秒後に自動で閉じます...")
+        time.sleep(10)
+        
+    except Exception as e:
+        print(f"❌ エラーが発生しました: {e}")
+        print("💡 フォームURLが正しいか確認してください")
+    
+    finally:
+        driver.quit()
+        print("🔚 ブラウザを閉じました")
+
+if __name__ == "__main__":
+    print("🤖 Googleフォーム自動入力テスト開始")
+    print("=" * 50)
+    test_google_form()
